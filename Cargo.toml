@@ -18,8 +18,3 @@ serde_json = "1.0.151"
 validator = { version = "0.21.0", features = ["derive"] }
 
 
-# curl http://localhost:8080/users/me \
-#   -H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2YWM5NmQ1N2VhM2Q0YTY2YzMxNjhjYjAiLCJ1c2VyIjp7Il9pZCI6IjZhYzk2ZDU3ZWEzZDRhNjZjMzE2OGNiMCIsImZpcnN0X25hbWUiOiJDaGFybGVzIiwibGFzdF9uYW1lIjoiQ2hhcmxlcyIsImVtYWlsIjoiZGV2Y2hhcmxlemVuQGdtYWlsLmNvbSIsImRhdGVfb2ZfYmlydGgiOjEwMTU2MzIwMDAsImNyZWF0ZWRfYXQiOjE3OTE1ODU2MjQsImVkaXRlZF9hdCI6MTc5MTU4NTYyNH0sImV4cCI6MTc5MTY3MzI2M30.nfG2vaCCHMq1AqY4Z_RDehDBPHyL9Eq6mmQNYUEjfn8"
-
-
-
