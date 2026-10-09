@@ -20,7 +20,7 @@ pub async fn create_user(payload: CreateUserDto, db: &Database) -> Result<UserRe
         ));
     }
 
-    let user = User::try_from(payload).map_err(|e| AppError::BadRequest(e.to_string()))?;
+    let user = User::try_from(payload)?;
 
     // Save it
     db.users
@@ -46,7 +46,7 @@ pub async fn login(payload: LoginDto, db: &Database) -> Result<UserResponse, App
     let is_valid_password = compare_password(&payload.password, &existing_user.password)?;
 
     if !is_valid_password {
-        return Err(AppError::BadRequest("Invalid credentials".to_string()));
+        return Err(AppError::BadRequest("“Invalid email or password".to_string()));
     }
 
     let jwt = Tokens::generate_jwt(&UserResponse::from_user(&existing_user, None))?;

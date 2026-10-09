@@ -24,7 +24,7 @@ async fn main() -> std::io::Result<()> {
     let db_data = web::Data::new(db);
 
     let governor = GovernorConfigBuilder::default()
-        .per_second(2) // refill 2 requests per second
+        .requests_per_second(2) // refill 2 requests per second
         .burst_size(5) // allow a short burst of 5
         .finish()
         .unwrap();
