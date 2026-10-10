@@ -56,8 +56,7 @@ pub struct UpdateUserEmailDto {
 pub struct LoginDto {
     #[validate(email(message = "Email must be a valid email address"))]
     pub email: String,
-    #[validate(length(min = 1, message = "Password is required"),custom(function = validate_password_strength)
-)]
+    #[validate(length(min = 1, message = "Password is required"))]
     pub password: String,
 }
 

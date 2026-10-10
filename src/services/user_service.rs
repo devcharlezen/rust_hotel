@@ -4,7 +4,7 @@ use crate::{
     models::user_model::User,
     utils::{auth::AuthUser, password::compare_password, response::AppError, token::Tokens},
 };
-use mongodb::bson::{doc, oid::ObjectId};
+use mongodb::bson::doc;
 
 pub async fn create_user(payload: CreateUserDto, db: &Database) -> Result<UserResponse, AppError> {
     // Check if the email is already taken
@@ -28,7 +28,6 @@ pub async fn create_user(payload: CreateUserDto, db: &Database) -> Result<UserRe
         .await
         .map_err(|e| AppError::Internal(e.to_string()))?;
 
-    //Reply with 201 Created, never send the password back
     Ok(UserResponse::from_user(&user, None))
 }
 
@@ -46,12 +45,13 @@ pub async fn login(payload: LoginDto, db: &Database) -> Result<UserResponse, App
     let is_valid_password = compare_password(&payload.password, &existing_user.password)?;
 
     if !is_valid_password {
-        return Err(AppError::BadRequest("“Invalid email or password".to_string()));
+        return Err(AppError::BadRequest(
+            "Invalid email or password".to_string(),
+        ));
     }
 
     let jwt = Tokens::generate_jwt(&UserResponse::from_user(&existing_user, None))?;
 
-    //Reply with 201 Created, never send the password back
     Ok(UserResponse::from_user(&existing_user, Some(jwt)))
 }
 

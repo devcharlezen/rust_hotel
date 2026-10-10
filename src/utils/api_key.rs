@@ -6,7 +6,7 @@ use actix_web::{
     middleware::Next,
 };
 
-use crate::config::env::Env;
+use crate::{config::env::Env, utils::response::AppError};
 
 pub async fn api_key_guard(
     req: ServiceRequest,
@@ -33,6 +33,6 @@ pub async fn api_key_guard(
 
     match provided {
         Some(key) if key == expected => next.call(req).await,
-        _ => Err(ErrorUnauthorized("Invalid or missing API key")),
+        _ => Err(AppError::Unauthorized("Invalid or missing API key".to_string()).into()),
     }
 }

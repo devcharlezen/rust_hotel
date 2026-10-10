@@ -12,7 +12,7 @@ impl Env {
         dotenvy::dotenv().ok();
         let database_uri = var("MONGODB_URI").expect("MONGODB_URI must be set");
         let jwt_secret = var("JWT_SECRET").expect("JWT_SECRET must be set");
-        let api_key = var("API_KEY").expect("APK_KEY must be set");
+        let api_key = var("API_KEY").expect("API_KEY must be set");
         let server_port = var("SERVER_PORT")
             .expect("SERVER_PORT must be set")
             .parse::<u16>()

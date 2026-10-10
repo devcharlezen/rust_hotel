@@ -1,11 +1,18 @@
 use actix_web::{
     HttpResponse,
+    http::StatusCode,
     web::{Data, Json},
 };
 use validator::Validate;
 
 use crate::{
-    config::db::Database, dtos::user_dto, services::user_service, utils::{auth::AuthUser, response::{AppError, success_response}},
+    config::db::Database,
+    dtos::user_dto,
+    services::user_service,
+    utils::{
+        auth::AuthUser,
+        response::{AppError, success_response},
+    },
 };
 
 pub async fn create_user(
@@ -21,7 +28,7 @@ pub async fn create_user(
     let payload = payload.into_inner();
     let user_response = user_service::create_user(payload, &db).await?;
     Ok(success_response(
-        None,
+        Some(StatusCode::CREATED),
         "User created successfully",
         serde_json::json!(user_response),
     ))
@@ -40,7 +47,7 @@ pub async fn login(
     let payload = payload.into_inner();
     let user_response = user_service::login(payload, &db).await?;
     Ok(success_response(
-        None,
+        Some(StatusCode::OK),
         "User logged in successfully",
         serde_json::json!(user_response),
     ))
@@ -51,7 +58,7 @@ pub async fn get_profile(auth: AuthUser) -> Result<HttpResponse, AppError> {
     let user = user_service::get_profile(auth).await?;
 
     Ok(success_response(
-        None,
+        Some(StatusCode::OK),
         "User fetched successfully",
         serde_json::json!(user),
     ))
